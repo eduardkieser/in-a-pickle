@@ -76,6 +76,30 @@ storage.
 - No real networking yet — the transport layer is behind an interface so real push
   can slot in later without touching the UI.
 
+## Round 2 direction — location, verification, ring matching
+
+Round-2 brief notes (the "Sue from Jane Road 10" brief) sharpen the model. Full
+reasoning and wireframes live in [docs/design.md](design.md); the decisions that
+carry forward:
+
+- **Register order:** capability questions first (~5–10 tiles incl. "Anything — ask
+  me"), then "where you live", then home.
+- **Location verification:** GPS-in-house at registration is primary; silent
+  overnight tracking is the fallback; a street-captain layer is optional and
+  switchable. Unverified accounts stay quiet.
+- **Your call radius is your choice:** matched by home address or live background
+  location, per user.
+- **Ring matching:** a pickle reaches the 5 closest willing people, then the next 5,
+  then the next 5 — never the whole town at once.
+- **Quiet resolution:** the first "I can help" clears the call (badges/notifications
+  drop everywhere else, no log clutter); the requester's OK gates only contact
+  details.
+
+The phase-1 pickle category set (lift / shopping / house / medical / company /
+petcare / tech) is being superseded by the round-2 taxonomy drawn in
+`design-02`/`design-04`; both stay in the loop until the first real category
+validation with the first-responders group.
+
 ## Out of scope (later)
 
 - Accounts/backend, App Store distribution, image upload, geofencing that isn't asked
