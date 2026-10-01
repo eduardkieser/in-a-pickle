@@ -52,9 +52,8 @@ class PickleRequest {
       throw ArgumentError('pickle is missing an id');
     }
     final rawCreatedAt = json['createdAt'];
-    final createdAt = rawCreatedAt is String
-        ? DateTime.tryParse(rawCreatedAt)
-        : null;
+    final createdAt =
+        rawCreatedAt is String ? DateTime.tryParse(rawCreatedAt) : null;
     if (createdAt == null) {
       throw ArgumentError('pickle is missing a valid created time');
     }
@@ -66,9 +65,8 @@ class PickleRequest {
       throw ArgumentError('pickle has an unknown audience');
     }
     final statusName = json['status'] as String?;
-    final status = statusName == null
-        ? null
-        : PickleStatus.values.asNameMap()[statusName];
+    final status =
+        statusName == null ? null : PickleStatus.values.asNameMap()[statusName];
     if (status == null) {
       throw ArgumentError('pickle has an unknown status');
     }

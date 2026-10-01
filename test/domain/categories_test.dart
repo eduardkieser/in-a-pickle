@@ -36,7 +36,8 @@ void main() {
 
   test('titles read as plain help-first language', () {
     for (final c in kPickleCategories) {
-      expect(c.title, isNot(matches(r'\bhelp\b')), reason: '${c.id} title leans on the word "help"');
+      expect(c.title, isNot(matches(r'\bhelp\b')),
+          reason: '${c.id} title leans on the word "help"');
     }
   });
 

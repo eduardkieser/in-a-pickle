@@ -8,10 +8,11 @@ targets, high contrast, and no gestures that trip up an older neighbour.
 
 ## Status
 
-First increment: minimal profile (name / optional address / bio), the "I need help"
-and "I can help" flows with local persistence (a queued outbox). No accounts or real
-matching yet — the transport is an interface (`PickleTransport`) so a backend can slot
-in behind a quality gate later.
+The current prototype now includes a trust-led one-time onboarding, pinned home
+address, deterministic at-home location check or captain fallback, capability
+questions, staged helper acceptance, requester approval, a route view, and matched
+chat. The shared village service and GPS check are still local fakes: they exercise
+the complete interaction without pretending the production backend exists.
 
 ## Product
 
@@ -33,7 +34,13 @@ This project runs an adversarial review loop with quality gates:
 ```sh
 flutter pub get
 flutter run -d chrome      # PWA
-flutter test               # 55 tests
+flutter test               # 60 behavioural/widget tests; 10 capture states skipped
 flutter analyze
 flutter build web --release
+./tool/capture_app_states.sh # refresh 13 states in tmp/screenshots/latest/
+./tool/review_wireframes.sh  # regenerate, validate, render, and review 11 scenes
 ```
+
+The screenshot crank uses Flutter's widget renderer at a fixed 390×844 viewport. It
+loads Flutter's bundled Roboto and Material Icons during capture, uses no browser or
+network map tiles, and replaces the latest PNG set on every run.

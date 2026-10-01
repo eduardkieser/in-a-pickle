@@ -14,7 +14,8 @@ class OfferScreen extends ConsumerWidget {
     final offer = ref.watch(offerProvider);
     final theme = Theme.of(context);
 
-    Future<void> save(Offer next) => ref.read(offerProvider.notifier).update(next);
+    Future<void> save(Offer next) =>
+        ref.read(offerProvider.notifier).update(next);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Lend a hand')),
@@ -22,7 +23,8 @@ class OfferScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            Text('What can you help with?', style: theme.textTheme.headlineMedium),
+            Text('What can you help with?',
+                style: theme.textTheme.headlineMedium),
             const SizedBox(height: 12),
             Text(
               'Tap what you can do. When you are available, pickles that match come to '
@@ -38,7 +40,9 @@ class OfferScreen extends ConsumerWidget {
                     : AppColors.card,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: offer.available ? AppColors.pickle : const Color(0xFFB8C0C0),
+                  color: offer.available
+                      ? AppColors.pickle
+                      : const Color(0xFFB8C0C0),
                   width: 2,
                 ),
               ),
@@ -63,7 +67,8 @@ class OfferScreen extends ConsumerWidget {
             for (final category in kPickleCategories)
               CheckboxListTile(
                 value: offer.offers(category.id),
-                onChanged: (v) => save(offer.withOffer(category.id, v ?? false)),
+                onChanged: (v) =>
+                    save(offer.withOffer(category.id, v ?? false)),
                 contentPadding: EdgeInsets.zero,
                 controlAffinity: ListTileControlAffinity.leading,
                 title: Text(category.title, style: theme.textTheme.titleLarge),

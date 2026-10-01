@@ -40,7 +40,8 @@ void main() {
     expect(find.text('Hello Gogo'), findsOneWidget);
   });
 
-  testWidgets('a helper-offer screen is reachable from the can-help button', (tester) async {
+  testWidgets('a helper-offer screen is reachable from the can-help button',
+      (tester) async {
     await tester.pumpWidget(await host());
     await tester.pumpAndSettle();
 

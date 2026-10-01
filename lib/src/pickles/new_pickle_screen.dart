@@ -62,7 +62,8 @@ class _NewPickleScreenState extends ConsumerState<NewPickleScreen> {
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: [
-            Text('What kind of pickle is it?', style: theme.textTheme.headlineMedium),
+            Text('What kind of pickle is it?',
+                style: theme.textTheme.headlineMedium),
             const SizedBox(height: 20),
             LayoutBuilder(
               builder: (context, constraints) {

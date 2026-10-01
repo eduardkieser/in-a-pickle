@@ -11,8 +11,13 @@ import 'storage.dart';
 final localStoreProvider = Provider<LocalStore>((ref) => SharedPrefsStore());
 
 class ProfileController extends Notifier<Profile?> {
+  ProfileController({Profile? seed}) : _seed = seed;
+
+  final Profile? _seed;
+
   @override
   Profile? build() {
+    if (_seed != null) return _seed;
     _load();
     return null;
   }
@@ -111,9 +116,9 @@ class OutboxController extends Notifier<PickleOutbox> {
 
   Future<void> _persist() async {
     await ref.read(localStoreProvider).write(
-      StoreKeys.outbox,
-      jsonEncode(state.items.map((r) => r.toJson()).toList()),
-    );
+          StoreKeys.outbox,
+          jsonEncode(state.items.map((r) => r.toJson()).toList()),
+        );
   }
 }
 

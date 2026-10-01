@@ -9,9 +9,10 @@ class AppColors {
   static const onPickle = Colors.white;
 }
 
-ThemeData buildTheme() {
+ThemeData buildTheme({String? fontFamily}) {
   final base = ThemeData(
     useMaterial3: true,
+    fontFamily: fontFamily,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.pickle,
       primary: AppColors.pickle,
@@ -72,7 +73,11 @@ ThemeData buildTheme() {
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         minimumSize: const Size.fromHeight(64),
-        textStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+        textStyle: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 22,
+          fontWeight: FontWeight.w700,
+        ),
         backgroundColor: AppColors.pickle,
         foregroundColor: AppColors.onPickle,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -81,7 +86,11 @@ ThemeData buildTheme() {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         minimumSize: const Size.fromHeight(64),
-        textStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+        textStyle: TextStyle(
+          fontFamily: fontFamily,
+          fontSize: 22,
+          fontWeight: FontWeight.w700,
+        ),
         foregroundColor: AppColors.ocean,
         side: const BorderSide(color: AppColors.ocean, width: 2),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

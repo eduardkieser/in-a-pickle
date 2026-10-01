@@ -17,7 +17,8 @@ void main() {
     );
   }
 
-  testWidgets('an off-duty helper sees the instruction to go live', (tester) async {
+  testWidgets('an off-duty helper sees the instruction to go live',
+      (tester) async {
     await tester.pumpWidget(host());
     await tester.pumpAndSettle();
 

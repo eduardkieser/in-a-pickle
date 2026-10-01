@@ -92,7 +92,8 @@ void main() {
     await tester.tap(find.text('Send the pickle'));
     await tester.pump();
 
-    expect(find.text('Tap a tile to say what kind of pickle it is.'), findsOneWidget);
+    expect(find.text('Tap a tile to say what kind of pickle it is.'),
+        findsOneWidget);
   });
 
   testWidgets('sending with no message explains exactly what is missing',

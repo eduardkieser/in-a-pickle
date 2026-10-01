@@ -40,12 +40,14 @@ class MyPicklesScreen extends ConsumerWidget {
                         ),
                         subtitle: Padding(
                           padding: const EdgeInsets.only(top: 6),
-                          child: Text(request.message, style: theme.textTheme.bodyMedium),
+                          child: Text(request.message,
+                              style: theme.textTheme.bodyMedium),
                         ),
                         trailing: request.status == PickleStatus.sent
                             ? TextButton(
-                                onPressed: () =>
-                                    ref.read(outboxProvider.notifier).markDone(request.id),
+                                onPressed: () => ref
+                                    .read(outboxProvider.notifier)
+                                    .markDone(request.id),
                                 child: const Text('Done'),
                               )
                             : const Icon(Icons.check_circle, size: 30),
@@ -66,7 +68,9 @@ class _StatusDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Icon(
-      status == PickleStatus.sent ? Icons.radio_button_checked : Icons.check_circle,
+      status == PickleStatus.sent
+          ? Icons.radio_button_checked
+          : Icons.check_circle,
       size: 34,
       color: status == PickleStatus.sent
           ? Theme.of(context).colorScheme.primary

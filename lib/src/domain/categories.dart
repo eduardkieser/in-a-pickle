@@ -46,6 +46,21 @@ const kPickleCategories = <PickleCategory>[
     title: 'Technology',
     hint: 'A phone, a TV, a laptop',
   ),
+  PickleCategory(
+    id: 'childcare',
+    title: 'Child care',
+    hint: 'A short watch or a school run',
+  ),
+  PickleCategory(
+    id: 'borrow',
+    title: 'Borrow something',
+    hint: 'A tool, an ingredient, a spare',
+  ),
+  PickleCategory(
+    id: 'anything',
+    title: 'Something else',
+    hint: 'Ask anyway — a neighbour may know how',
+  ),
 ];
 
 PickleCategory? categoryById(String id) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../community/community_screens.dart';
+import '../domain/profile.dart';
 import '../offer/offer_screen.dart';
 import '../pickles/my_pickles_screen.dart';
 import '../pickles/new_pickle_screen.dart';
@@ -24,7 +26,8 @@ class HomeScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 8),
-              Text('In a Pickle', style: Theme.of(context).textTheme.headlineLarge),
+              Text('In a Pickle',
+                  style: Theme.of(context).textTheme.headlineLarge),
               Text(
                 'Pringle Bay',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -55,6 +58,10 @@ class HomeScreen extends ConsumerWidget {
               const SizedBox(height: 24),
               _StatusStrip(available: offer.available),
               const SizedBox(height: 16),
+              if (profile != null) ...[
+                _LocationStrip(profile: profile),
+                const SizedBox(height: 16),
+              ],
               Row(
                 children: [
                   Expanded(
@@ -75,6 +82,19 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 16),
+              OutlinedButton.icon(
+                onPressed: profile?.isVerified == true
+                    ? () => _go(
+                          context,
+                          NearbyPicklesScreen(
+                            helperId: profile!.name.trim().toLowerCase(),
+                          ),
+                        )
+                    : null,
+                icon: const Icon(Icons.notifications_active_outlined, size: 28),
+                label: const Text('Nearby calls'),
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -85,6 +105,48 @@ class HomeScreen extends ConsumerWidget {
   void _go(BuildContext context, Widget screen) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (_) => screen),
+    );
+  }
+}
+
+class _LocationStrip extends StatelessWidget {
+  const _LocationStrip({required this.profile});
+
+  final Profile profile;
+
+  @override
+  Widget build(BuildContext context) {
+    final verified = profile.isVerified;
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Row(children: [
+        Icon(
+          verified ? Icons.home_outlined : Icons.schedule,
+          color: verified ? AppColors.pickle : AppColors.ocean,
+          size: 32,
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(
+              verified ? 'Verified home' : 'Verification pending',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 3),
+            Text(
+              verified
+                  ? (profile.address ?? 'Home location confirmed')
+                  : 'Your account stays quiet until your captain visit.',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ]),
+        ),
+      ]),
     );
   }
 }
@@ -158,7 +220,8 @@ class _StatusStrip extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(available ? Icons.check_circle : Icons.pause_circle, color: color, size: 28),
+          Icon(available ? Icons.check_circle : Icons.pause_circle,
+              color: color, size: 28),
           const SizedBox(width: 12),
           Expanded(
             child: Text(

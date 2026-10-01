@@ -42,10 +42,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   Future<void> _save() async {
+    final current = ref.read(profileProvider);
     final profile = Profile(
       name: _name.text.trim(),
       address: _address.text.trim().isEmpty ? null : _address.text.trim(),
       bio: _bio.text.trim().isEmpty ? null : _bio.text.trim(),
+      capabilityIds: current?.capabilityIds ?? const {},
+      homeLocation: current?.homeLocation,
+      verificationStatus:
+          current?.verificationStatus ?? AddressVerificationStatus.unverified,
+      matchingLocation: current?.matchingLocation ?? MatchingLocation.home,
+      onboardingComplete: current?.onboardingComplete ?? false,
     );
     final error = profile.validationError;
     if (error.isNotEmpty) {
@@ -69,8 +76,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             Text('About you', style: theme.textTheme.headlineMedium),
             const SizedBox(height: 12),
             Text(
-              'Your name is all we need. The address shows only to helpers you match '
-              'with, and only if you choose to add it.',
+              'Your exact address is only shared inside an accepted match. To move '
+              'home, ask a street captain to verify the new address.',
               style: theme.textTheme.bodyLarge,
             ),
             const SizedBox(height: 28),
@@ -88,12 +95,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             const SizedBox(height: 20),
             TextField(
               controller: _address,
+              readOnly: true,
               style: const TextStyle(fontSize: 20),
               textInputAction: TextInputAction.next,
               onChanged: (_) => _dirty = true,
               decoration: const InputDecoration(
-                labelText: 'Address (optional)',
+                labelText: 'Verified home address',
                 labelStyle: TextStyle(fontSize: 20),
+                suffixIcon: Icon(Icons.verified_outlined),
               ),
             ),
             const SizedBox(height: 20),

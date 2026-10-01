@@ -13,27 +13,31 @@ void main() {
     );
   });
 
-test('a request requires a category', () {
-      expect(
-        () => PickleRequest.fromJson({'categoryId': 'nope', 'message': 'Lift please'}),
-        throwsArgumentError,
-      );
-    });
+  test('a request requires a category', () {
+    expect(
+      () => PickleRequest.fromJson(
+          {'categoryId': 'nope', 'message': 'Lift please'}),
+      throwsArgumentError,
+    );
+  });
 
   test('a valid request takes sensible defaults', () {
     final r = PickleRequest(category: lift, message: 'Lift to the clinic');
     expect(r.audience, PickleAudience.nearbyHelpers);
     expect(r.status, PickleStatus.sent);
-    expect(r.createdAt.isBefore(DateTime.now().add(const Duration(seconds: 1))), isTrue);
+    expect(r.createdAt.isBefore(DateTime.now().add(const Duration(seconds: 1))),
+        isTrue);
   });
 
   test('requests carry an id', () {
-    final r = PickleRequest(category: medical, message: 'Script at the pharmacy');
+    final r =
+        PickleRequest(category: medical, message: 'Script at the pharmacy');
     expect(r.id, isNotEmpty);
   });
 
   test('audience only reaches the two known options', () {
-    expect(PickleAudience.values, [PickleAudience.nearbyHelpers, PickleAudience.anyoneListening]);
+    expect(PickleAudience.values,
+        [PickleAudience.nearbyHelpers, PickleAudience.anyoneListening]);
   });
 
   test('status only reaches sent and done', () {

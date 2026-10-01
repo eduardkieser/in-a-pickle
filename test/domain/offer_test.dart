@@ -46,7 +46,10 @@ void main() {
 
   test('round-trips through JSON', () {
     final offer = Offer();
-    final state = offer.withOffer('lift', true).withOffer('shopping', true).withAvailable(true);
+    final state = offer
+        .withOffer('lift', true)
+        .withOffer('shopping', true)
+        .withAvailable(true);
     final restored = Offer.fromJson(state.toJson());
     expect(restored.available, isTrue);
     expect(restored.offers('lift'), isTrue);
@@ -56,14 +59,20 @@ void main() {
 
   test('rejects an offer with an unknown category id', () {
     expect(
-      () => Offer.fromJson({'available': true, 'categoryIds': ['not-a-thing']}),
+      () => Offer.fromJson({
+        'available': true,
+        'categoryIds': ['not-a-thing']
+      }),
       throwsArgumentError,
     );
   });
 
   test('rejects an offer with a non-string category id', () {
     expect(
-      () => Offer.fromJson({'available': true, 'categoryIds': [42]}),
+      () => Offer.fromJson({
+        'available': true,
+        'categoryIds': [42]
+      }),
       throwsArgumentError,
     );
   });

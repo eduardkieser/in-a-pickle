@@ -5,7 +5,8 @@ import 'package:in_a_pickle/src/storage.dart';
 import 'package:in_a_pickle/src/state.dart';
 
 void main() {
-  testWidgets('the app boots to the home screen', (tester) async {
+  testWidgets('a new neighbour boots into the trusted-circle onboarding',
+      (tester) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
@@ -19,7 +20,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('In a Pickle'), findsOneWidget);
-    expect(find.text('Pringle Bay'), findsOneWidget);
+    expect(find.text('A trusted circle of neighbours'), findsOneWidget);
+    expect(find.text('Set up my account'), findsOneWidget);
   });
 }
